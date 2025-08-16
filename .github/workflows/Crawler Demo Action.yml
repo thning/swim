@@ -2,10 +2,13 @@ name: Crawler Demo Action
 run-name: Crawler Demo Action
 
 on:
+  workflow_dispatch:
   schedule:
     # 台灣時間 06:00~22:00 每小時 → UTC 22,23,0-14
     - cron: "0 22,23,0-14 * * *"
-  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   crawler-demo:
