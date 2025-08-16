@@ -25,12 +25,16 @@ jobs:
       - name: Run swim.py
         run: python swim.py
 
-      - name: Commit Data Back To GitHub Repo
+      - name: Commit and Push data.csv
         run: |
           git config --global user.name "thning"
           git config --global user.email "tzuhsuan.ning@gmail.com"
           git add data.csv
           git commit -m "daily crawl" || echo "No changes to commit"
-          git push origin HEAD:main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # 使用官方 push action 推回 GitHub
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          commit_message: "daily crawl"
